@@ -32,9 +32,29 @@ data class Feed(
 ) : Parcelable {
     val defaultThumbUrl: String
         get() {
-            if (CollectionUtils.isEmpty(media)
-                || CollectionUtils.isEmpty(media?.get(NumberUtils.INTEGER_ZERO)?.`media-metadata`)
-            ) return StringUtils.EMPTY
-            return media?.get(NumberUtils.INTEGER_ZERO)?.`media-metadata`!!.get(NumberUtils.INTEGER_ZERO).url!!
+            val defaultMedia: List<MediaMetadata> = getDefaultMedia() ?: return StringUtils.EMPTY
+            return defaultMedia?.get(NumberUtils.INTEGER_ZERO).url!!
         }
+
+    val defaultImageUrl: String
+        get() {
+            val defaultMedia: List<MediaMetadata> = getDefaultMedia() ?: return StringUtils.EMPTY
+            return defaultMedia.get(defaultMedia.size - NumberUtils.INTEGER_ONE).url!!
+        }
+
+    val formattedCategories: String
+        get() {
+            return arrayOf(
+                section!!,
+                subsection!!,
+                nytdsection!!
+            ).joinToString(separator = " / ") { it -> it }
+        }
+
+    private fun getDefaultMedia(): List<MediaMetadata>? {
+        if (CollectionUtils.isEmpty(media)
+            || CollectionUtils.isEmpty(media?.get(NumberUtils.INTEGER_ZERO)?.`media-metadata`)
+        ) return null
+        return media?.get(NumberUtils.INTEGER_ZERO)?.`media-metadata`
+    }
 }
