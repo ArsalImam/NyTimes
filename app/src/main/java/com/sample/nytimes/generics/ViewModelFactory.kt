@@ -2,7 +2,7 @@ package com.sample.nytimes.generics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.sample.nytimes.feeds.FeedsViewModel
+import com.sample.nytimes.feeds.list.FeedsViewModel
 
 /**
  * [author] by `Arsal Imam`

@@ -1,8 +1,11 @@
 package com.sample.nytimes
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.nytimes.generics.BaseAdapter
+import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 /**
  * [author] by `Arsal Imam`
@@ -20,5 +23,12 @@ object BindingAdapters {
                 items = list
             }
         }
+    }
+
+    @BindingAdapter("app:circleImage")
+    @JvmStatic
+    @Suppress("UNCHECKED_CAST")
+    fun loadCircleImage(imageView: ImageView, url: String) {
+        Picasso.get().load(url).transform(CropCircleTransformation()).placeholder(R.color.bg_grey)
     }
 }

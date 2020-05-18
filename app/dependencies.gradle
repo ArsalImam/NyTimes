@@ -6,11 +6,15 @@ ext {
     networkDependencies = [
             retrofit             : "com.squareup.retrofit2:retrofit:${RetrofitVersion}",
             retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${RetrofitVersion}",
-            okHttp3Logging       : "com.squareup.okhttp3:logging-interceptor:${OkHttpVersion}"
+            okHttp3Logging       : "com.squareup.okhttp3:logging-interceptor:${OkHttpVersion}",
+            picasso              : "com.squareup.picasso:picasso:2.71828"
     ]
     //Dependencies of Misc Libs
     miscDependencies = [
             commonLang      : "commons-lang:commons-lang:2.6",
+            commonCollection: "org.apache.commons:commons-collections4:4.0",
+            intuit          : "com.intuit.sdp:sdp-android:1.0.6",
+            transformation  : "jp.wasabeef:picasso-transformations:2.2.1"
     ]
 
     //Dependencies of Android Support Libs

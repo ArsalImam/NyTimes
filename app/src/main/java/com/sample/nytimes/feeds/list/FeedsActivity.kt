@@ -1,4 +1,4 @@
-package com.sample.nytimes.feeds
+package com.sample.nytimes.feeds.list
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.sample.nytimes.R
 import com.sample.nytimes.data.beans.Feed
 import com.sample.nytimes.databinding.ActivityFeedsBinding
+import com.sample.nytimes.feeds.detail.FeedsDetailActivity
 import com.sample.nytimes.generics.BaseAdapter
 import com.sample.nytimes.utils.exts.obtainViewModel
 
@@ -20,9 +21,11 @@ class FeedsActivity : AppCompatActivity(), BaseAdapter.OnItemClickListener<Feed>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_feeds)
-        binding.lifecycleOwner = this
-        binding.viewModel = obtainViewModel(FeedsViewModel::class.java).apply {
-            init()
+        binding.apply {
+            lifecycleOwner = this@FeedsActivity
+            viewModel = obtainViewModel(FeedsViewModel::class.java).apply {
+                init()
+            }
         }
         setupRecyclerView()
     }
@@ -34,6 +37,6 @@ class FeedsActivity : AppCompatActivity(), BaseAdapter.OnItemClickListener<Feed>
     }
 
     override fun onItemClick(item: Feed) {
-
+        FeedsDetailActivity.openActivity(this@FeedsActivity, item)
     }
 }

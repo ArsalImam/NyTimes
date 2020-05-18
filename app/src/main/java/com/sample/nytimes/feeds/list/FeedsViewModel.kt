@@ -1,4 +1,4 @@
-package com.sample.nytimes.feeds
+package com.sample.nytimes.feeds.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,13 +25,23 @@ class FeedsViewModel : ViewModel() {
     val feedList: LiveData<ArrayList<Feed>>
         get() = _feedList
 
-    fun init() {
+    private val _isRefreshing =
+        MutableLiveData<Boolean>().apply { value = false }
+    val isRefreshing: LiveData<Boolean>
+        get() = _isRefreshing
+
+    fun init() = refreshFeeds()
+
+    fun refreshFeeds() {
+        _isRefreshing.value = true
         feedsRepository.queryFeedsByPage(page, object : Callback<ArrayList<Feed>> {
             override fun onResult(data: ArrayList<Feed>) {
+                _isRefreshing.value = false
                 _feedList.value = data
             }
 
             override fun onError(error: String) {
+                _isRefreshing.value = false
                 ViewUtils.showToast(error)
             }
         })
