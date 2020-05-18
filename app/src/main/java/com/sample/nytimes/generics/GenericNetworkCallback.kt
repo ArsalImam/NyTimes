@@ -1,5 +1,6 @@
 package com.sample.nytimes.generics
 
+import com.sample.nytimes.utils.ApiConstants
 import com.sample.nytimes.utils.Callback
 import org.apache.commons.lang.StringUtils
 import retrofit2.Call
@@ -13,23 +14,34 @@ import retrofit2.Response
  */
 class GenericNetworkCallback<T, A : BaseResponse<T>>(val callback: Callback<T>) :
     retrofit2.Callback<A> {
+    /**
+     * retrofit failure method, will trigger on api failure
+     * [call] request context of the service call
+     * [t] error caused of the failure
+     */
     override fun onFailure(call: Call<A>, t: Throwable) {
         t.printStackTrace()
         callback.onError(t.localizedMessage ?: StringUtils.EMPTY)
     }
 
+    /**
+     * retrofit success method, will trigger on api successful
+     *
+     * [call] request context of the service call
+     * [response] response on service call success
+     */
     override fun onResponse(call: Call<A>, response: Response<A>) {
         //handle success
         try {
             if (response.isSuccessful) {
                 response.body()?.let {
                     if (it.isSuccess) {
-                        it.data?.let { it1 -> callback.onResult(it1) }
+                        it.results?.let { it1 -> callback.onResult(it1) }
                     } else {
                         it.error?.let { it1 -> callback.onError(it1) }
                     }
+                    return
                 }
-                return
             }
 
             //handle failure
@@ -38,11 +50,11 @@ class GenericNetworkCallback<T, A : BaseResponse<T>>(val callback: Callback<T>) 
                 callback.onError(errorBody.string())
                 println(errorBody.string())
             } else {
-                callback.onError("Something went wrong!")
+                callback.onError(ApiConstants.ErrorMessage.SOMETHING_WENT_WRONGE)
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            callback.onError("Something went wrong!")
+            callback.onError(ApiConstants.ErrorMessage.SOMETHING_WENT_WRONGE)
         }
     }
 }

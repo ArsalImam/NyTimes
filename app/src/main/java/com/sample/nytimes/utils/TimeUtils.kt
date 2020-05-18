@@ -1,6 +1,6 @@
 package com.sample.nytimes.utils
 
-import com.sample.nytimes.NyTimesApp
+import android.content.res.Resources
 import com.sample.nytimes.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -9,6 +9,8 @@ import java.util.*
 /**
  * [author] by `Arsal Imam`
  * [created] on 5/18/2020
+ *
+ * utility class to manage time resources
  */
 object TimeUtils {
     private const val FORMAT_DATE: String = "yyyy-MM-dd hh:mm:ss"
@@ -17,18 +19,25 @@ object TimeUtils {
     private const val HOUR_MILLIS = 60 * MINUTE_MILLIS
     private const val DAY_MILLIS = 24 * HOUR_MILLIS
 
+    /**
+     * this method will return the [Date] object with current date/time
+     */
     private fun currentDate(): Date {
         val calendar = Calendar.getInstance()
         return calendar.time
     }
 
-    fun getTimeAgo(formattedTime: String): String {
+    /**
+     * will calculate the time difference from current date to the date specified
+     *
+     * [formattedTime] from which difference needs to calculate
+     * [resources] to obtain string literals
+     */
+    fun getTimeAgo(resources: Resources, formattedTime: String): String {
         var time = parseStringToDate(formattedTime).time
         if (time < 1000000000000L) {
             time *= 1000
         }
-
-        val resources = NyTimesApp.INSTANCE.resources
 
         val now = currentDate().time
         if (time > now || time <= 0) {
@@ -47,6 +56,9 @@ object TimeUtils {
         }
     }
 
+    /**
+     * parse string date to [Date] object
+     */
     private fun parseStringToDate(formattedTime: String): Date {
         val format: DateFormat = SimpleDateFormat(FORMAT_DATE, Locale.ENGLISH)
         return format.parse(formattedTime)

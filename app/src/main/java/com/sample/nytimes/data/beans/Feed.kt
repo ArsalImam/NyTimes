@@ -1,6 +1,7 @@
 package com.sample.nytimes.data.beans
 
 import android.os.Parcelable
+import com.sample.nytimes.utils.Constants.DELIMITER_CATEGORY
 import kotlinx.android.parcel.Parcelize
 import org.apache.commons.collections4.CollectionUtils
 import org.apache.commons.lang.StringUtils
@@ -33,22 +34,22 @@ data class Feed(
     val defaultThumbUrl: String
         get() {
             val defaultMedia: List<MediaMetadata> = getDefaultMedia() ?: return StringUtils.EMPTY
-            return defaultMedia?.get(NumberUtils.INTEGER_ZERO).url!!
+            return defaultMedia[NumberUtils.INTEGER_ZERO].url!!
         }
 
     val defaultImageUrl: String
         get() {
             val defaultMedia: List<MediaMetadata> = getDefaultMedia() ?: return StringUtils.EMPTY
-            return defaultMedia.get(defaultMedia.size - NumberUtils.INTEGER_ONE).url!!
+            return defaultMedia[defaultMedia.size - NumberUtils.INTEGER_ONE].url!!
         }
 
     val formattedCategories: String
         get() {
-            return arrayOf(
-                section!!,
-                subsection!!,
-                nytdsection!!
-            ).joinToString(separator = " / ") { it -> it }
+            var categoryName = StringUtils.EMPTY
+            if (StringUtils.isNotEmpty(section!!)) categoryName += section!! + DELIMITER_CATEGORY
+            if (StringUtils.isNotEmpty(subsection!!)) categoryName += subsection!! + DELIMITER_CATEGORY
+            if (StringUtils.isNotEmpty(nytdsection!!)) categoryName += nytdsection!! + DELIMITER_CATEGORY
+            return categoryName
         }
 
     private fun getDefaultMedia(): List<MediaMetadata>? {

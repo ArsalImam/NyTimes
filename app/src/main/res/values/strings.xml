@@ -13,4 +13,6 @@
     <string name="a_hours_ago">hours ago</string>
     <string name="yesterday">yesterday</string>
     <string name="days_ago">days ago</string>
+    <string name="categories">Categories</string>
+    <string name="abstract_key">abstract</string>
 </resources>

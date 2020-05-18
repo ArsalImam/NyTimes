@@ -17,9 +17,16 @@ import java.util.concurrent.TimeUnit
 /**
  * [author] by `Arsal Imam`
  * [created] on 5/17/2020
+ *
+ * network client to handle feed's services
  */
 interface FeedsService {
 
+    /**
+     * this method is responsible to perform a network call to get latest feeds from NYT's server
+     * [page] can be used to manage pagination
+     * [callback] will be used to return data set on receive from server
+     */
     @GET(ApiConstants.LIST_FEEDS)
     fun queryFeedsByPage(
         @Path(ApiConstants.Request.PAGE) page: Int,
@@ -28,10 +35,16 @@ interface FeedsService {
 
     companion object {
 
+        /**
+         * retrofit connection manager
+         */
         val connecton by lazy {
             invoke(BuildConfig.BASE_URL)
         }
 
+        /**
+         * retrofit http interceptor to manage api logs, only available in debug view
+         */
         private val loggingInterceptor = HttpLoggingInterceptor().apply {
             this.level = if (BuildConfig.DEBUG)
                 HttpLoggingInterceptor.Level.BODY
@@ -39,6 +52,9 @@ interface FeedsService {
                 HttpLoggingInterceptor.Level.NONE
         }
 
+        /**
+         * retrofit okhttp client to handle network calls
+         */
         private val client: OkHttpClient =
             OkHttpClient.Builder().apply {
                 followRedirects(true)
@@ -51,6 +67,10 @@ interface FeedsService {
                 interceptors().add(loggingInterceptor)
             }.build()
 
+        /**
+         * this method will create a retrofit instance to execute server calls for feeds
+         * [baseUrl] for nyt client
+         */
         private operator fun invoke(baseUrl: String): FeedsService {
             return Retrofit.Builder()
                 .client(client)

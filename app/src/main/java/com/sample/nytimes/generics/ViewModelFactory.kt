@@ -13,6 +13,11 @@ import com.sample.nytimes.feeds.list.FeedsViewModel
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
 
+    /**
+     * factory method to get view models
+     *
+     * [modelClass] of which the class object for which the view model requested
+     */
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
@@ -23,9 +28,16 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
 
 
     companion object {
+
+        /**
+         * instance method for this factory
+         */
         @Volatile
         private var instance: ViewModelFactory? = null
 
+        /**
+         * singleton instance method for this factory
+         */
         fun getInstance() =
             instance
                 ?: synchronized(ViewModelFactory::class.java) {
