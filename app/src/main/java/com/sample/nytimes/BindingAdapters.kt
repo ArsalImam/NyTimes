@@ -12,6 +12,7 @@ import com.sample.nytimes.utils.DrawableUtils
 import com.sample.nytimes.utils.TimeUtils
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
+import org.apache.commons.lang.StringUtils
 import org.apache.commons.lang.math.NumberUtils
 
 /**
@@ -49,6 +50,7 @@ object BindingAdapters {
     @BindingAdapter("app:circleImage")
     @JvmStatic
     fun loadCircleImage(imageView: ImageView, url: String) {
+        if (StringUtils.isBlank(url)) return
         Picasso.get().load(url).transform(CropCircleTransformation()).placeholder(R.color.bg_grey)
             .into(imageView)
     }
@@ -62,6 +64,7 @@ object BindingAdapters {
     @BindingAdapter("app:imageUrl")
     @JvmStatic
     fun loadImage(imageView: ImageView, url: String) {
+        if (StringUtils.isBlank(url)) return
         Picasso.get().load(url).placeholder(R.color.bg_grey).into(imageView)
     }
 
