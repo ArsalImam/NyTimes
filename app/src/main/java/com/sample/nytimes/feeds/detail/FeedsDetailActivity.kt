@@ -65,7 +65,7 @@ class FeedsDetailActivity : AppCompatActivity() {
         private const val EXTRA_FEED_DETAIL: String = "feed_detail"
 
         /**
-         * This method is used to open withdrawal activity by using intent API mentioned by android docs.
+         * This method is used to open feed detail activity by using intent API mentioned by android docs.
          * For more info on intents, refers the below URL,
          * @see [Intents](https://developer.android.com/reference/android/content/Intent)
          *
