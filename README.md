@@ -11,8 +11,10 @@ https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=sample-key
 
 ## Reports
 
- 1. Android Lint:
- 2. Code coverage:
+ 1. Android Lint: https://github.com/ArsalImam/NyTimes/tree/master/reports/lint
+ 2. SonarQube Analysis: https://sonarcloud.io/dashboard?id=ArsalImam_NyTimes
+ 3. Test results: https://github.com/ArsalImam/NyTimes/tree/master/reports/test-results
+ 4. Build Scripts: https://github.com/ArsalImam/NyTimes/blob/master/build.bat
 
 ## Details about the Recipe
 #### Basic Architecture
