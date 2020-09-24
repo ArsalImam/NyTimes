@@ -1,4 +1,4 @@
-package com.sample.nytimes.generics
+package com.sample.nytimes.utils.generics
 
 /**
  * [author] by `Arsal Imam`

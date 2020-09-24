@@ -1,7 +1,7 @@
 package com.sample.nytimes.data.beans.response
 
 import com.sample.nytimes.data.beans.Feed
-import com.sample.nytimes.generics.BaseResponse
+import com.sample.nytimes.utils.generics.BaseResponse
 
 /**
  * [author] by `Arsal Imam`

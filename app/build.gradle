@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply from: 'dependencies.gradle'
 
 android {
@@ -17,6 +18,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     buildTypes {
@@ -51,6 +58,10 @@ dependencies {
 
     //Dependencies of Android Support Libs
     implementation supportDependencies.values()
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    kapt "androidx.hilt:hilt-compiler:1.0.0-alpha01"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

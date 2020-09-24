@@ -2,6 +2,7 @@ package com.sample.nytimes
 
 import android.app.Application
 import androidx.multidex.MultiDexApplication
+import dagger.hilt.android.HiltAndroidApp
 
 /**
  * [author] by `Arsal Imam`
@@ -9,11 +10,13 @@ import androidx.multidex.MultiDexApplication
  *
  * singleton application class for the app
  */
+@HiltAndroidApp
 class NyTimesApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+
     }
 
     companion object {

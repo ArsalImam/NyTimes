@@ -1,4 +1,4 @@
-package com.sample.nytimes.generics
+package com.sample.nytimes.utils.generics
 
 import com.sample.nytimes.utils.ApiConstants.Request.STATUS_SUCCESS
 import org.apache.commons.lang.StringUtils

@@ -1,7 +1,9 @@
 package com.sample.nytimes.data
 
 import com.sample.nytimes.data.beans.Feed
+import com.sample.nytimes.data.beans.response.FeedResponse
 import com.sample.nytimes.utils.Callback
+import kotlinx.coroutines.flow.Flow
 
 /**
  * [author] by `Arsal Imam`
@@ -16,5 +18,5 @@ interface IFeedsRepository {
      * [page] can be used to manage pagination
      * [callback] will be used to return data set on receive from server
      */
-    fun queryFeedsByPage(page: Int, callback: Callback<ArrayList<Feed>>)
+    fun queryFeedsByPage(page: Int): Flow<ArrayList<Feed>>
 }

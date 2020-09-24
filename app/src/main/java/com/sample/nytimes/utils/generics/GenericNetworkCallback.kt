@@ -1,4 +1,4 @@
-package com.sample.nytimes.generics
+package com.sample.nytimes.utils.generics
 
 import com.sample.nytimes.utils.ApiConstants
 import com.sample.nytimes.utils.Callback

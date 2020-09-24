@@ -1,14 +1,15 @@
 package com.sample.nytimes.feeds.list
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.sample.nytimes.R
 import com.sample.nytimes.data.beans.Feed
 import com.sample.nytimes.databinding.ActivityFeedsBinding
 import com.sample.nytimes.feeds.detail.FeedsDetailActivity
-import com.sample.nytimes.generics.BaseAdapter
-import com.sample.nytimes.utils.exts.obtainViewModel
+import com.sample.nytimes.utils.generics.BaseAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * [author] by `Arsal Imam`
@@ -16,13 +17,10 @@ import com.sample.nytimes.utils.exts.obtainViewModel
  *
  * this activity component can be used to show feed's listings
  */
+@AndroidEntryPoint
 class FeedsActivity : AppCompatActivity(), BaseAdapter.OnItemClickListener<Feed> {
 
-    /**
-     * Binding object between activity and xml file, it contains all objects
-     * of UI components used by this activity
-     */
-    private lateinit var binding: ActivityFeedsBinding
+    private val viewModel: FeedsViewModel by viewModels()
 
     /**
      * {@inheritDoc}
@@ -35,24 +33,15 @@ class FeedsActivity : AppCompatActivity(), BaseAdapter.OnItemClickListener<Feed>
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_feeds)
-        binding.apply {
+        DataBindingUtil.setContentView<ActivityFeedsBinding>(this, R.layout.activity_feeds).apply {
             lifecycleOwner = this@FeedsActivity
-            viewModel = obtainViewModel(FeedsViewModel::class.java).apply {
-                init()
+            viewModel = this@FeedsActivity.viewModel
+            recyclerView.apply {
+                adapter = BaseAdapter(R.layout.item_feeds, this@FeedsActivity)
             }
         }
-        setupRecyclerView()
     }
 
-    /**
-     * this method will setup or for initial configurations for recyclerview
-     */
-    private fun setupRecyclerView() {
-        binding.recyclerView.apply {
-            adapter = BaseAdapter(R.layout.item_feeds, this@FeedsActivity)
-        }
-    }
 
     /**
      * this method will invoke by the adapter, when any of the feed cell tapped

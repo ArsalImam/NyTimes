@@ -1,4 +1,4 @@
-package com.sample.nytimes
+package com.sample.nytimes.utils
 
 import android.text.Spannable
 import android.text.SpannableString
@@ -6,10 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sample.nytimes.generics.BaseAdapter
+import com.sample.nytimes.R
+import com.sample.nytimes.utils.generics.BaseAdapter
 import com.sample.nytimes.utils.Constants.SPACE
-import com.sample.nytimes.utils.DrawableUtils
-import com.sample.nytimes.utils.TimeUtils
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import org.apache.commons.lang.StringUtils
