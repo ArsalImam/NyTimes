@@ -1,4 +1,4 @@
-final RetrofitVersion = '2.5.0'
+final RetrofitVersion = '2.6.0'
 final OkHttpVersion = '3.12.1'
 
 ext {

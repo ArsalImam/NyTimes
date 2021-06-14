@@ -57,7 +57,7 @@ object NetworkModule {
      */
     @Singleton
     @Provides
-    fun provideHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder().apply {
             followRedirects(true)
             followSslRedirects(true)
@@ -66,7 +66,7 @@ object NetworkModule {
             connectTimeout(NumberUtils.LONG_ONE, TimeUnit.MINUTES)
             readTimeout(NumberUtils.LONG_ONE, TimeUnit.MINUTES)
             writeTimeout(NumberUtils.LONG_ONE, TimeUnit.MINUTES)
-            interceptors().add(loggingInterceptor)
+//            interceptors().add(loggingInterceptor)
         }.build()
     }
 

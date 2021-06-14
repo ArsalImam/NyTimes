@@ -1,8 +1,11 @@
 package com.sample.nytimes.data.sources
 
 import com.sample.nytimes.data.FeedsService
+import com.sample.nytimes.BuildConfig
 import com.sample.nytimes.data.beans.response.FeedResponse
+import com.sample.nytimes.di.NetworkModule
 import kotlinx.coroutines.flow.Flow
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Inject
 
 /**
@@ -13,8 +16,7 @@ import javax.inject.Inject
  */
 class FeedsRemoteSource {
 
-    @Inject
-    lateinit var feedsService: FeedsService
+    var feedsService: FeedsService = NetworkModule.provideRetrofit(NetworkModule.provideHttpClient())
 
     /**
      * this method is responsible to perform a network call to get latest feeds from NYT's server
