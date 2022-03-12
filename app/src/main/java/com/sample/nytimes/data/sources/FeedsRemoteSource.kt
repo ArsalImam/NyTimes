@@ -1,12 +1,9 @@
 package com.sample.nytimes.data.sources
 
 import com.sample.nytimes.data.FeedsService
-import com.sample.nytimes.BuildConfig
+import com.sample.nytimes.data.beans.FeedCommentPost
 import com.sample.nytimes.data.beans.response.FeedResponse
 import com.sample.nytimes.di.NetworkModule
-import kotlinx.coroutines.flow.Flow
-import okhttp3.logging.HttpLoggingInterceptor
-import javax.inject.Inject
 
 /**
  * [author] by `Arsal Imam`
@@ -26,4 +23,8 @@ class FeedsRemoteSource {
     suspend fun queryFeedsByPage(
         page: Int
     ): FeedResponse = feedsService.queryFeedsByPage(page)
+
+    suspend fun postComments(
+        comment: List<FeedCommentPost>
+    ): FeedResponse = feedsService.postComments(comment)
 }

@@ -26,7 +26,8 @@ ext {
             recyclerView    : "androidx.recyclerview:recyclerview:1.1.0",
             constraintLayout: "androidx.constraintlayout:constraintlayout:1.1.3",
             multidex        : "androidx.multidex:multidex:2.0.0",
-            lifecycle       : "androidx.lifecycle:lifecycle-extensions:2.0.0"
+            lifecycle       : "androidx.lifecycle:lifecycle-extensions:2.0.0",
+            room            : "androidx.room:room-runtime:$room_version"
     ]
 
     //Dependencies of DI Libs

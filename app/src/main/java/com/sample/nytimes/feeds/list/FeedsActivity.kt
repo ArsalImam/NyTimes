@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.observe
+import com.sample.nytimes.NyTimesApp
 import com.sample.nytimes.R
 import com.sample.nytimes.data.beans.Feed
 import com.sample.nytimes.databinding.ActivityFeedsBinding
@@ -40,6 +42,13 @@ class FeedsActivity : AppCompatActivity(), BaseAdapter.OnItemClickListener<Feed>
                 adapter = BaseAdapter(R.layout.item_feeds, this@FeedsActivity)
             }
         }
+
+        NyTimesApp.INSTANCE.isNetworkAvailable.observe(this) {
+            if (it) viewModel.syncComments()
+        }
+
+        //Example for post comment from view
+        viewModel.postComment("My name is Arsal")
     }
 
 

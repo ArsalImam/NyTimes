@@ -8,13 +8,15 @@ import androidx.lifecycle.asLiveData
 import com.sample.nytimes.data.IFeedsRepository
 import com.sample.nytimes.data.beans.Feed
 import org.apache.commons.lang.math.NumberUtils
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * [author] by `Arsal Imam`
  * [created] on 5/17/2020
  */
 class FeedsViewModel @ViewModelInject constructor(
-    feedsRepository: IFeedsRepository
+    private val _feedsRepository: IFeedsRepository
 ) : ViewModel() {
 
     /**
@@ -25,7 +27,7 @@ class FeedsViewModel @ViewModelInject constructor(
     /**
      * observable list of feeds which updates ui (on change)
      */
-    val feedList: LiveData<ArrayList<Feed>> = feedsRepository
+    val feedList: LiveData<ArrayList<Feed>> = _feedsRepository
         .queryFeedsByPage(page).asLiveData()
 
     /**
@@ -42,4 +44,8 @@ class FeedsViewModel @ViewModelInject constructor(
     fun refreshFeeds() {
         _isRefreshing.value = true
     }
+
+   fun postComment(message: String) = _feedsRepository.postComments(message, Date())
+
+    fun syncComments() = _feedsRepository.syncComments()
 }

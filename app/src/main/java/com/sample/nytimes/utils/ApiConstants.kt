@@ -18,4 +18,6 @@ object ApiConstants {
     }
 
     const val LIST_FEEDS = "/svc/mostpopular/v2/viewed/{page}.json"
+    const val POST_COMMENTS = "/feed/comments"
+
 }

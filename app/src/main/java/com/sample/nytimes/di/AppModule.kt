@@ -1,10 +1,14 @@
 package com.sample.nytimes.di
 
+import androidx.room.Room
 import com.sample.nytimes.BuildConfig
+import com.sample.nytimes.NyTimesApp
 import com.sample.nytimes.data.FeedsRepository
 import com.sample.nytimes.data.FeedsService
 import com.sample.nytimes.data.IFeedsRepository
 import com.sample.nytimes.data.sources.FeedsRemoteSource
+import com.sample.nytimes.data.sources.FeedsLocalSource
+import com.sample.nytimes.utils.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +27,10 @@ object DataSourceModule {
     @Singleton
     @Provides
     fun provideFeedsDataSource(): FeedsRemoteSource = FeedsRemoteSource()
+
+    @Singleton
+    @Provides
+    fun provideFeedsLocalDataSource(): FeedsLocalSource = FeedsLocalSource()
 }
 
 @Module
@@ -31,9 +39,10 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideFeedsRepository(remoteDataSource: FeedsRemoteSource): IFeedsRepository {
-        return FeedsRepository(remoteDataSource)
-    }
+    fun provideFeedsRepository(
+        remoteDataSource: FeedsRemoteSource,
+        localSource: FeedsLocalSource
+    ): IFeedsRepository = FeedsRepository(remoteDataSource, localSource)
 }
 
 @Module
@@ -66,7 +75,6 @@ object NetworkModule {
             connectTimeout(NumberUtils.LONG_ONE, TimeUnit.MINUTES)
             readTimeout(NumberUtils.LONG_ONE, TimeUnit.MINUTES)
             writeTimeout(NumberUtils.LONG_ONE, TimeUnit.MINUTES)
-//            interceptors().add(loggingInterceptor)
         }.build()
     }
 
@@ -83,5 +91,25 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(FeedsService::class.java)
+    }
+}
+
+
+@Module
+@InstallIn(ApplicationComponent::class)
+object LocalModule {
+
+
+    /**
+     * this method will create a retrofit instance to execute server calls for feeds
+     * [baseUrl] for nyt client
+     */
+    @Singleton
+    @Provides
+    fun provideRoom(): AppDatabase {
+        return Room.databaseBuilder(
+            NyTimesApp.INSTANCE,
+            AppDatabase::class.java, "feeds-db"
+        ).build()
     }
 }

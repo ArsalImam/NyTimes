@@ -1,13 +1,12 @@
 package com.sample.nytimes.data
 
 import com.sample.nytimes.BuildConfig
+import com.sample.nytimes.data.beans.FeedCommentPost
 import com.sample.nytimes.data.beans.response.FeedResponse
 import com.sample.nytimes.utils.ApiConstants
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * [author] by `Arsal Imam`
@@ -27,4 +26,7 @@ interface FeedsService {
         @Path(ApiConstants.Request.PAGE) page: Int,
         @Query(ApiConstants.Request.API_KEY) apiKey: String = BuildConfig.NYC_API_LEY
     ): FeedResponse
+
+    @POST(ApiConstants.POST_COMMENTS)
+    suspend fun postComments( @Body comment: List<FeedCommentPost>): FeedResponse
 }
