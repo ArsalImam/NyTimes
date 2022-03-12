@@ -11,23 +11,37 @@ https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=sample-key
 
 ## Reports
 
- 1. Android Lint: https://github.com/ArsalImam/NyTimes/tree/master/reports/lint
- 2. SonarQube Analysis: https://sonarcloud.io/dashboard?id=ArsalImam_NyTimes
- 3. Test results: https://github.com/ArsalImam/NyTimes/tree/master/reports/test-results
- 4. Build Scripts: https://github.com/ArsalImam/NyTimes/blob/master/build.bat
+1. Android Lint: https://github.com/ArsalImam/NyTimes/tree/master/reports/lint
+2. SonarQube Analysis: https://sonarcloud.io/dashboard?id=ArsalImam_NyTimes
+3. Test results: https://github.com/ArsalImam/NyTimes/tree/master/reports/test-results
+4. Build Scripts: https://github.com/ArsalImam/NyTimes/blob/master/build.bat
 
 ## Details about the Recipe
 #### Basic Architecture
 This project is build using the best practises mentioned on android developer guidelines, following are the main components which used by this library,
 
- - MVVM (as a primary arch)
- - Data Binding v2
- - Design Patterns (Service Locator, Repository, Factory, Singleton etc)
+- MVVM (as a primary arch)
+- Data Binding v2
+- Design Patterns (Service Locator, Repository, Factory, Singleton etc)
+
+#### Updates (2022-03-22):
+We have added a small sample implementation of changelog to save user comments locally within a SQLite (Room) database and sync these comments with the remote server (based upon the availibility in network connection), for more details please refer the following functions,
+
+- FeedsViewModel#postComment
+- FeedsViewModel#syncComments
+- FeedsRepository#postComment
+- FeedsRepository#syncComments
+
+Database Implementation Classes:
+- AppDatabase
+- FeedCommentDao
+- ChangeLogDao
+
 
 #### Common Libraries
 
- - Retrofit (for network related operations)
- - Picasso (for image loading/caching)
+- Retrofit (for network related operations)
+- Picasso (for image loading/caching)
 
 ## Author
 ArsalImam
